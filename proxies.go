@@ -74,6 +74,12 @@ func (p *ProxiesList) getProxy() (Proxy, error) {
 	var proxy Proxy
 	var err error
 
+	defer func() {
+		if err := recover(); err != nil {
+			log.Println(err)
+		}
+	}()
+
 	for {
 		if p._index >= len(p._proxies) {
 			p._index = 0
